@@ -19,8 +19,7 @@ class MixtraServiceProvider extends ServiceProvider
         $this->publishes([__DIR__.'/userfiles/assets' => public_path('assets')], 'mit_assets');
         $this->publishes([__DIR__.'/userfiles/config/mixtra.php' => config_path('mixtra.php')], 'mit_config');
         $this->publishes([__DIR__.'/userfiles/lang' => resource_path('lang')], 'mit_localization');
-        $this->publishes([__DIR__.'/userfiles/vendor' => resource_path('views/vendor')], 'mit_vendor');
-        $this->publishes([__DIR__.'/database' => base_path('database')], 'mit_migration');
+        $this->publishes([__DIR__.'/userfiles/views' => resource_path('views')], 'mit_views');
         $this->publishes([__DIR__.'/database' => base_path('database')], 'mit_migration');
 
         if (!file_exists(app_path('Http/Controllers/UserController.php'))) {

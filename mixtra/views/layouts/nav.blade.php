@@ -6,6 +6,9 @@
 					<li class="{{ Route::currentRouteName() ==  'HomeControllerGetIndex' ? 'active' : ''}}">
 						<a  href="{{ route('HomeControllerGetIndex') }}"><i class="la la-dashboard"></i> <span>Dashboard</span></a>
 					</li>	
+					@if (file_exists(resource_path('views/mixtra/sidemenu.blade.php')))
+            			@include('mixtra.sidemenu')
+        			@endif
 					<li class="menu-title"> 
 						<span>SUPERADMIN</span>
 					</li>

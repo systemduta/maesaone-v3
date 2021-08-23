@@ -41,7 +41,7 @@ class MITUpdateCommand extends Command
         $this->call('vendor:publish', ['--tag' => 'mit_assets', '--force' => true]);
         $this->call('vendor:publish', ['--tag' => 'mit_config', '--force' => true]);
         $this->call('vendor:publish', ['--tag' => 'mit_localization', '--force' => true]);
-        $this->call('vendor:publish', ['--tag' => 'mit_vendor', '--force' => true]);
+        $this->call('vendor:publish', ['--tag' => 'mit_views', '--force' => true]);
         $this->call('vendor:publish', ['--tag' => 'mit_migration', '--force' => true]);
         $this->call('vendor:publish', ['--tag' => 'mit_controllers', '--force' => true]);
 
