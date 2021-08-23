@@ -3,8 +3,8 @@
 		<div class="sidebar-inner slimscroll">
 			<div id="sidebar-menu" class="sidebar-menu">
 				<ul>
-					<li class="{{ Route::currentRouteName() ==  'HomeControllerGetIndex' ? 'active' : ''}}">
-						<a  href="{{ route('HomeControllerGetIndex') }}"><i class="la la-dashboard"></i> <span>Dashboard</span></a>
+					<li class="{{ Route::currentRouteName() ==  'AdminControllerGetIndex' ? 'active' : ''}}">
+						<a  href="{{ route('AdminControllerGetIndex') }}"><i class="la la-dashboard"></i> <span>Dashboard</span></a>
 					</li>	
 					@if (file_exists(resource_path('views/mixtra/sidemenu.blade.php')))
             			@include('mixtra.sidemenu')
@@ -19,6 +19,9 @@
 							<li><a class="{{ Route::currentRouteName() ==  'UserControllerGetIndex' ? 'active' : ''}}" href="{{ route('UserControllerGetIndex') }}">User List</a></li>
 						</ul>
 					</li>
+					<li class="{{ Route::currentRouteName() ==  'MenuControllerGetIndex' ? 'active' : ''}}">
+						<a  href="{{ route('MenuControllerGetIndex') }}"><i class="fa fa-layer-group"></i> <span>Menu</span></a>
+					</li>	
 					<li class="{{ Route::currentRouteName() ==  'SettingControllerGetIndex' ? 'active' : ''}}">
 						<a  href="{{ route('SettingControllerGetShow') }}"><i class="fa fa-sliders-h"></i> <span>Settings</span></a>
 					</li>	

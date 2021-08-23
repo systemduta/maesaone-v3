@@ -25,8 +25,8 @@ class MixtraServiceProvider extends ServiceProvider
         if (!file_exists(app_path('Http/Controllers/UserController.php'))) {
             $this->publishes([__DIR__.'/userfiles/controllers/UserController.php' => app_path('Http/Controllers/UserController.php')], 'mit_controllers');
         }
-        if (!file_exists(app_path('Http/Controllers/HomeController.php'))) {
-            $this->publishes([__DIR__.'/userfiles/controllers/HomeController.php' => app_path('Http/Controllers/HomeController.php')], 'mit_controllers');
+        if (!file_exists(app_path('Http/Controllers/AdminController.php'))) {
+            $this->publishes([__DIR__.'/userfiles/controllers/AdminController.php' => app_path('Http/Controllers/AdminController.php')], 'mit_controllers');
         }
 
         require __DIR__.'/routes.php';

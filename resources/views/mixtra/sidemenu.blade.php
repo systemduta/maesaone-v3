@@ -1,22 +1,52 @@
-<li class="menu-title"> 
-    <span>Main</span>
+<li class="submenu">
+    <a href="#"><i class="la la-users"></i> <span> Administration</span> <span class="menu-arrow"><i class="fa fa-chevron-right"></i></span></a>
+    <ul style="display: none;">
+        <li><a class="{{ Route::currentRouteName() ==  'CompanyControllerGetIndex' ? 'active' : ''}}" href="{{ route('CompanyControllerGetIndex') }}"><span>Company</span></a></li>
+        <li><a class="{{ Route::currentRouteName() ==  'CompanyControllerGetIndex' ? 'active' : ''}}" href="{{ route('CompanyControllerGetIndex') }}"><span>Departments</span></a></li>
+        <li><a class="{{ Route::currentRouteName() ==  'CompanyControllerGetIndex' ? 'active' : ''}}" href="{{ route('CompanyControllerGetIndex') }}"><span>Job Positions</span></a></li>
+    </ul>
 </li>
 <li class="submenu">
-    <a href="#"><i class="la la-cube"></i> <span> Apps</span> <span class="menu-arrow"><i class="fa fa-chevron-right"></i></span></a>
+    <a href="#"><i class="la la-user"></i> <span> Employees</span> <span class="menu-arrow"><i class="fa fa-chevron-right"></i></span></a>
     <ul style="display: none;">
-        <li class="{{ Request::is('chat') ? 'active' : '' }}"><a  href="{{ url('chat') }}">Chat</a></li>
-        <li class="submenu">
-            <a href="#"><span> Calls</span> <span class="menu-arrow"></span></a>
-            <ul style="display: none;">
-                <li class="{{ Request::is('voice-call') ? 'active' : '' }}"><a  href="{{ url('voice-call') }}">Voice Call</a></li>
-                <li class="{{ Request::is('video-call') ? 'active' : '' }}"><a  href="{{ url('video-call') }}">Video Call</a></li>
-                <li class="{{ Request::is('outgoing-call') ? 'active' : '' }}"><a  href="{{ url('outgoing-call') }}">Outgoing Call</a></li>
-                <li class="{{ Request::is('incoming-call') ? 'active' : '' }}"><a  href="{{ url('incoming-call') }}">Incoming Call</a></li>
-            </ul>
-        </li>
-        <li><a class="{{ Request::is('events') ? 'active' : '' }}" href="{{ url('events') }}">Calendar</a></li>
-        <li><a class="{{ Request::is('contacts') ? 'active' : '' }}" href="{{ url('contacts') }}">Contacts</a></li>
-        <li><a class="{{ Request::is('inbox') ? 'active' : '' }}" href="{{ url('inbox') }}">Email</a></li>						
-        <li><a class="{{ Request::is('file-manager') ? 'active' : '' }}"  href="{{ url('file-manager') }}">File Manager</a></li>								
+        <li><a class="{{ Request::is('employees') ? 'active' : '' }}" href="{{ url('employees') }}">All Employees</a></li>			
+        <li><a class="{{ Request::is('holidays') ? 'active' : '' }}" href="{{ url('holidays') }}">Holidays</a></li>	
+        <li><a class="{{ Request::is('leaves-employee') ? 'active' : '' }}" href="{{ url('leaves-employee') }}">Leaves</a></li>	
+        <li><a class="{{ Request::is('attendance-employee') ? 'active' : '' }}" href="{{ url('attendance-employee') }}">Attendance</a></li>	
+        <li><a class="{{ Request::is('overtime') ? 'active' : '' }}" href="{{ url('overtime') }}">Overtime</a></li>								        
+    </ul>
+</li>
+<li class="submenu">
+    <a href="#"><i class="la la-money"></i> <span> Payroll</span> <span class="menu-arrow"><i class="fa fa-chevron-right"></i></span></a>
+    <ul style="display: none;">
+        <li><a class="{{ Request::is('salary') ? 'active' : '' }}" href="{{ url('salary') }}">Employee Salary</a></li>	
+        <li><a class="{{ Request::is('salary-view') ? 'active' : '' }}" href="{{ url('salary-view') }}">Payslip</a></li>	
+        <li><a class="{{ Request::is('payroll-items') ? 'active' : '' }}" href="{{ url('payroll-items') }}">Payroll Items</a></li>	
+    </ul>
+</li>
+<li class="menu-title"> 
+    <span>Perfomance</span>
+</li>
+<li class="submenu">
+    <a href="#"><i class="la la-graduation-cap"></i> <span> Performance </span> <span class="menu-arrow"><i class="fa fa-chevron-right"></i></span></a>
+    <ul style="display: none;">
+        <li><a class="{{ Request::is('performance-indicator') ? 'active' : '' }}" href="{{ url('performance-indicator') }}"> Performance Indicator  </a></li>
+        <li><a class="{{ Request::is('performance') ? 'active' : '' }}" href="{{ url('performance') }}"> Performance Review  </a></li>    
+        <li><a class="{{ Request::is('performance-appraisal') ? 'active' : '' }}" href="{{ url('performance-appraisal') }}"> Performance Appraisal  </a></li>
+    </ul>
+</li>
+<li class="submenu">
+    <a href="#"><i class="la la-crosshairs"></i> <span> Goals </span> <span class="menu-arrow"><i class="fa fa-chevron-right"></i></span></a>
+    <ul style="display: none;">
+        <li><a class="{{ Request::is('goal-tracking') ? 'active' : '' }}" href="{{ url('goal-tracking') }}"> Goal List  </a></li>
+        <li><a class="{{ Request::is('goal-type') ? 'active' : '' }}" href="{{ url('goal-type') }}"> Goal Type  </a></li>
+    </ul>
+</li>
+<li class="submenu">
+    <a href="#"><i class="la la-edit"></i> <span> Training </span> <span class="menu-arrow"><i class="fa fa-chevron-right"></i></span></a>
+    <ul style="display: none;">
+        <li><a class="{{ Request::is('training') ? 'active' : '' }}" href="{{ url('training') }}"> Training List  </a></li>
+        <li><a class="{{ Request::is('trainers') ? 'active' : '' }}" href="{{ url('trainers') }}"> Trainers  </a></li>
+        <li><a class="{{ Request::is('training-type') ? 'active' : '' }}" href="{{ url('training-type') }}"> Training Type  </a></li>
     </ul>
 </li>
