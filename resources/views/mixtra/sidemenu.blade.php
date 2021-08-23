@@ -3,13 +3,13 @@
     <ul style="display: none;">
         <li><a class="{{ Route::currentRouteName() ==  'CompanyControllerGetIndex' ? 'active' : ''}}" href="{{ MITBooster::sidebarUrl('CompanyControllerGetIndex') }}"><span>Company</span></a></li>
         <li><a class="{{ Route::currentRouteName() ==  'DepartmentControllerGetIndex' ? 'active' : ''}}" href="{{ MITBooster::sidebarUrl('DepartmentControllerGetIndex') }}"><span>Departments</span></a></li>
-        <li><a class="{{ Route::currentRouteName() ==  'CompanyControllerGetIndex' ? 'active' : ''}}" href="{{ MITBooster::sidebarUrl('CompanyControllerGetIndex') }}"><span>Job Positions</span></a></li>
+        <li><a class="{{ Route::currentRouteName() ==  'TitleControllerGetIndex' ? 'active' : ''}}" href="{{ MITBooster::sidebarUrl('TitleControllerGetIndex') }}"><span>Job Positions</span></a></li>
     </ul>
 </li>
 <li class="submenu">
     <a href="#"><i class="la la-user"></i> <span> Employees</span> <span class="menu-arrow"><i class="fa fa-chevron-right"></i></span></a>
     <ul style="display: none;">
-        <li><a class="{{ Request::is('employees') ? 'active' : '' }}" href="{{ url('employees') }}">All Employees</a></li>			
+        <li><a class="{{ Route::currentRouteName() ==  'EmployeeControllerGetIndex' ? 'active' : ''}}" href="{{ MITBooster::sidebarUrl('EmployeeControllerGetIndex') }}"><span>All Employees</span></a></li>
         <li><a class="{{ Request::is('holidays') ? 'active' : '' }}" href="{{ url('holidays') }}">Holidays</a></li>	
         <li><a class="{{ Request::is('leaves-employee') ? 'active' : '' }}" href="{{ url('leaves-employee') }}">Leaves</a></li>	
         <li><a class="{{ Request::is('attendance-employee') ? 'active' : '' }}" href="{{ url('attendance-employee') }}">Attendance</a></li>	

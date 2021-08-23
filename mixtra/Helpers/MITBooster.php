@@ -374,7 +374,7 @@ class MITBooster
     public static function sidebarUrl($path) 
     {
         try {
-            return route($c->path);
+            return route($path);
         } catch (\Exception $e) {
             return "javascript:alert('".trans('locale.controller_route_404')."')";
         }
