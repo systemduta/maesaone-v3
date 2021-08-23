@@ -76,4 +76,6 @@ return [
   'text_prefix_option' => '** Please select a',
   'table_data_not_found' => "No Data Avaliable",
 
+  'controller_route_404' => 'Controller / Route Not Found',
+
 ];

@@ -370,4 +370,13 @@ class MITBooster
             $img->save(storage_path('app/'.$file_path_thumbnail.'/'.$filename), $thumbQty);
         }
     }
+
+    public static function sidebarUrl($path) 
+    {
+        try {
+            return route($c->path);
+        } catch (\Exception $e) {
+            return "javascript:alert('".trans('locale.controller_route_404')."')";
+        }
+    }
 }

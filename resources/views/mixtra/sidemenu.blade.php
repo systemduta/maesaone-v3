@@ -1,9 +1,9 @@
 <li class="submenu">
     <a href="#"><i class="la la-users"></i> <span> Administration</span> <span class="menu-arrow"><i class="fa fa-chevron-right"></i></span></a>
     <ul style="display: none;">
-        <li><a class="{{ Route::currentRouteName() ==  'CompanyControllerGetIndex' ? 'active' : ''}}" href="{{ route('CompanyControllerGetIndex') }}"><span>Company</span></a></li>
-        <li><a class="{{ Route::currentRouteName() ==  'CompanyControllerGetIndex' ? 'active' : ''}}" href="{{ route('CompanyControllerGetIndex') }}"><span>Departments</span></a></li>
-        <li><a class="{{ Route::currentRouteName() ==  'CompanyControllerGetIndex' ? 'active' : ''}}" href="{{ route('CompanyControllerGetIndex') }}"><span>Job Positions</span></a></li>
+        <li><a class="{{ Route::currentRouteName() ==  'CompanyControllerGetIndex' ? 'active' : ''}}" href="{{ MITBooster::sidebarUrl('CompanyControllerGetIndex') }}"><span>Company</span></a></li>
+        <li><a class="{{ Route::currentRouteName() ==  'DepartmentControllerGetIndex' ? 'active' : ''}}" href="{{ MITBooster::sidebarUrl('DepartmentControllerGetIndex') }}"><span>Departments</span></a></li>
+        <li><a class="{{ Route::currentRouteName() ==  'CompanyControllerGetIndex' ? 'active' : ''}}" href="{{ MITBooster::sidebarUrl('CompanyControllerGetIndex') }}"><span>Job Positions</span></a></li>
     </ul>
 </li>
 <li class="submenu">
