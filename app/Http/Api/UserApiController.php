@@ -19,6 +19,7 @@ class UserApiController extends ApiController
         $validator = Validator::make($credentials, [
             'username' => 'required',
             'password' => 'required',
+            'fcm_token' => 'string|nullable',
         ]);
 
         if ($validator->fails()) {
@@ -44,6 +45,15 @@ class UserApiController extends ApiController
             ->where("nik", $nik)
             ->first();
         if ($employee != null) {
+            // Update fcm_token
+            if (isset($credentials["fcm_token"])) {
+                DB::table('employees')
+                    ->where("nik", $nik)
+                    ->update([
+                        "fcm_token" => $credentials["fcm_token"]
+                    ]);
+            }
+
             // Checking Company ID
             $code = substr($credentials["username"], 0, 3);
             $company = DB::table('companies')
@@ -75,7 +85,7 @@ class UserApiController extends ApiController
         $issuedAt   = time();
         $notBefore  = $issuedAt;                        // Adding 10 seconds
         $expire     = $notBefore + 86400;               // Adding 3600 seconds
-        
+
         $payload = [
             'iat'  => $issuedAt,                        // Issued at: time when the token was generated
             'jti'  => $tokenId,                         // Json Token Id: an unique identifier for the token
