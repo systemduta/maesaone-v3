@@ -4,7 +4,7 @@ namespace App\Http\Api;
 
 use Mixtra\Controllers\ApiController;
 use Request;
-use DB;
+use \Illuminate\Support\Facades\DB;
 use MITBooster;
 use \Firebase\JWT\JWT;
 use Illuminate\Support\Facades\Storage;
@@ -84,6 +84,30 @@ class UnattendancesApiController extends ApiController
             $employee = db::table('employees')->where('id', $id)->first();
             if ($employee->leader_id == 0) {
                 $data['approval_1'] = 1;
+            } else {
+                $leader = \Illuminate\Support\Facades\DB::table('employees')
+                    ->where('id', $employee->leader_id)
+                    ->first();
+
+                if ($leader && $leader->fcm_token) {
+                    $recipients = [$leader->fcm_token];
+                    $title = 'Permintaan Izin Ketidakhadiran';
+                    $body = 'Pegawai atas nama ' . $employee->name . ' mengajukan izin tidak hadir pada tanggal '
+                        . $data['start_date'] . ' dengan alasan: ' . $data['reason'];
+
+                    fcm()->to($recipients)
+                        ->timeToLive(0)
+                        ->priority('normal')
+                        ->data([
+                            'id' => $employee->id,
+                            'title' => $title,
+                            'body' => $body,
+                        ])
+                        ->notification([
+                            'title' => $title,
+                            'body' => $body,
+                        ])->send();
+                }
             }
 
             db::table('unattendances')->insert($data);
@@ -150,7 +174,36 @@ class UnattendancesApiController extends ApiController
 
             $id = Request::get('id');
             $status = Request::get('status');
-            db::table('unattendances')->where('id', $id)->update(['approval_1' => $status]);
+
+            DB::table('unattendances')
+                ->where('id', $id)
+                ->update(['approval_1' => $status]);
+
+            $employee = DB::table('unattendances')
+                ->join('employees', 'unattendances.employee_id', '=', 'employees.id')
+                ->select('employees.fcm_token', 'unattendances.trans_date', 'unattendances.reason')
+                ->where('unattendances.id', $id)->first();
+
+            if ($employee && $employee->fcm_token) {
+                $recipients = [$employee->fcm_token];
+                $title = 'Konfirmasi Izin Ketidakhadiran';
+                $body = 'Pengajukan izin ketidakhadiran anda pada tanggal '
+                    . $employee->trans_date . ' dengan alasan: ' . $employee->reason
+                    . ($status==1 ? ' telah disetujui' : ' belum disetujui');
+
+                fcm()->to($recipients)
+                    ->timeToLive(0)
+                    ->priority('normal')
+                    ->data([
+                        'id' => $employee->id,
+                        'title' => $title,
+                        'body' => $body,
+                    ])
+                    ->notification([
+                        'title' => $title,
+                        'body' => $body,
+                    ])->send();
+            }
 
             $id = $decoded->data->employee_id;
             $data = db::table('unattendances as a')
