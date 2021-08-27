@@ -195,7 +195,6 @@ class UnattendancesApiController extends ApiController
                     ->timeToLive(0)
                     ->priority('normal')
                     ->data([
-                        'id' => $employee->id,
                         'title' => $title,
                         'body' => $body,
                     ])
