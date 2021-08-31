@@ -166,6 +166,7 @@ return [
          * Package Service Providers...
          */
         Kawankoding\Fcm\FcmServiceProvider::class,
+        Maatwebsite\Excel\ExcelServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -233,6 +234,7 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
 
         'Fcm' => Kawankoding\Fcm\FcmFacade::class,
+        'Excel' => Maatwebsite\Excel\Facades\Excel::class,
 
     ],
 
