@@ -21,13 +21,13 @@ class AttendanceController extends MITController
         $this->columns[] = ["label" => "Employee", "field" => "employee_name", "search_field" => "b.name"];
         $this->columns[] = ["label" => "Trans Date", "field" => "trans_date"];
         $this->columns[] = ["label" => "Check Time", "field" => "check_time"];
-        $this->columns[] = ["label" => "Type", "field" => "attendances_type"];
+        $this->columns[] = ["label" => "Type", "field" => "attendance_type"];
         $this->columns[] = ["label" => "Location", "field" => "location"];
 
         $this->forms = [];
         $this->forms[] = ["label" => "Trans Date", "name" => "trans_date", 'required' => true, 'width'=>'col-sm-2'];
         $this->forms[] = ["label" => "Check Time", "name" => "check_time", 'required' => true];
-        $this->forms[] = ["label" => "Type", "name" => "attendances_type", 'width'=>'col-sm-2'];
+        $this->forms[] = ["label" => "Type", "name" => "attendance_type", 'width'=>'col-sm-2'];
         $this->forms[] = ["label" => "Location", "name" => "location", 'width'=>'col-sm-2'];
     }
 
