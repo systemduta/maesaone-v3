@@ -379,4 +379,46 @@ class MITBooster
             return "javascript:alert('".trans('locale.controller_route_404')."')";
         }
     }
+
+
+    public static function parseSqlTable($table)
+    {
+        $f = explode('.', $table);
+
+        if (count($f) == 1) {
+            return ["table" => $f[0], "database" => config('mixtra.MAIN_DB_DATABASE')];
+        } elseif (count($f) == 2) {
+            return ["database" => $f[0], "table" => $f[1]];
+        } elseif (count($f) == 3) {
+            return ["table" => $f[0], "schema" => $f[1], "table" => $f[2]];
+        }
+
+        return false;
+    }
+
+    public static function newId($table)
+    {
+        $key = MITBooster::findPrimaryKey($table);
+        $id = DB::table($table)->max($key) + 1;
+
+        return $id;
+    }
+    
+    public static function findPrimaryKey($table)
+    {
+        if (!$table) {
+            return 'id';
+        }
+        
+        $pk = DB::getDoctrineSchemaManager()->listTableDetails($table)->getPrimaryKey();
+        if (!$pk) {
+            return null;
+        }
+        return $pk->getColumns()[0];
+    }
+    
+    public static function pk($table)
+    {
+        return self::findPrimaryKey($table);
+    }
 }

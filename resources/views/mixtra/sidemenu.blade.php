@@ -4,16 +4,20 @@
         <li><a class="{{ Route::currentRouteName() ==  'CompanyControllerGetIndex' ? 'active' : ''}}" href="{{ MITBooster::sidebarUrl('CompanyControllerGetIndex') }}"><span>Company</span></a></li>
         <li><a class="{{ Route::currentRouteName() ==  'DepartmentControllerGetIndex' ? 'active' : ''}}" href="{{ MITBooster::sidebarUrl('DepartmentControllerGetIndex') }}"><span>Departments</span></a></li>
         <li><a class="{{ Route::currentRouteName() ==  'TitleControllerGetIndex' ? 'active' : ''}}" href="{{ MITBooster::sidebarUrl('TitleControllerGetIndex') }}"><span>Job Positions</span></a></li>
+        <li><a class="{{ Route::currentRouteName() ==  'HolidayControllerGetIndex' ? 'active' : ''}}" href="{{ MITBooster::sidebarUrl('HolidayControllerGetIndex') }}"><span>Holidays</span></a></li>
+        <!-- <li><a class="{{ Request::is('holidays') ? 'active' : '' }}" href="{{ url('holidays') }}">Holidays</a></li>  -->
     </ul>
 </li>
 <li class="submenu">
     <a href="#"><i class="la la-user"></i> <span> Employees</span> <span class="menu-arrow"><i class="fa fa-chevron-right"></i></span></a>
     <ul style="display: none;">
         <li><a class="{{ Route::currentRouteName() ==  'EmployeeControllerGetIndex' ? 'active' : ''}}" href="{{ MITBooster::sidebarUrl('EmployeeControllerGetIndex') }}"><span>All Employees</span></a></li>
-        <li><a class="{{ Request::is('holidays') ? 'active' : '' }}" href="{{ url('holidays') }}">Holidays</a></li>	
-        <li><a class="{{ Request::is('leaves-employee') ? 'active' : '' }}" href="{{ url('leaves-employee') }}">Leaves</a></li>	
-        <li><a class="{{ Request::is('attendance-employee') ? 'active' : '' }}" href="{{ url('attendance-employee') }}">Attendance</a></li>	
-        <li><a class="{{ Request::is('overtime') ? 'active' : '' }}" href="{{ url('overtime') }}">Overtime</a></li>								        
+        <li><a class="{{ Route::currentRouteName() ==  'LeaveControllerGetIndex' ? 'active' : ''}}" href="{{ MITBooster::sidebarUrl('LeaveControllerGetIndex') }}"><span>Leaves</span></a></li>
+        <li><a class="{{ Route::currentRouteName() ==  'AttendanceControllerGetIndex' ? 'active' : ''}}" href="{{ MITBooster::sidebarUrl('AttendanceControllerGetIndex') }}"><span>Attendance</span></a></li>
+        <li><a class="{{ Route::currentRouteName() ==  'OvertimeControllerGetIndex' ? 'active' : ''}}" href="{{ MITBooster::sidebarUrl('OvertimeControllerGetIndex') }}"><span>Overtime</span></a></li>
+        <!-- <li><a class="{{ Request::is('leaves-employee') ? 'active' : '' }}" href="{{ url('leaves-employee') }}">Leaves</a></li>	 -->
+        <!-- <li><a class="{{ Request::is('attendance-employee') ? 'active' : '' }}" href="{{ url('attendance-employee') }}">Attendance</a></li>	 -->
+        <!-- <li><a class="{{ Request::is('overtime') ? 'active' : '' }}" href="{{ url('overtime') }}">Overtime</a></li>								         -->
     </ul>
 </li>
 <li class="submenu">
@@ -30,9 +34,12 @@
 <li class="submenu">
     <a href="#"><i class="la la-graduation-cap"></i> <span> Performance </span> <span class="menu-arrow"><i class="fa fa-chevron-right"></i></span></a>
     <ul style="display: none;">
-        <li><a class="{{ Request::is('performance-indicator') ? 'active' : '' }}" href="{{ url('performance-indicator') }}"> Performance Indicator  </a></li>
+        <li><a class="{{ Route::currentRouteName() ==  'CriticalPerformanceFactorControllerGetIndex' ? 'active' : ''}}" href="{{ MITBooster::sidebarUrl('CriticalPerformanceFactorControllerGetIndex') }}"><span>Critical Performance Factor (CPF)</span></a></li>
+        <li><a class="{{ Route::currentRouteName() ==  'JobDescriptionControllerGetIndex' ? 'active' : ''}}" href="{{ MITBooster::sidebarUrl('JobDescriptionControllerGetIndex') }}"><span>Job Description</span></a></li>
+        <li><a class="{{ Route::currentRouteName() ==  'PerformanceUmumControllerGetIndex' ? 'active' : ''}}" href="{{ MITBooster::sidebarUrl('PerformanceUmumControllerGetIndex') }}"><span>Performance Umum</span></a></li>
+        <!-- <li><a class="{{ Request::is('performance-indicator') ? 'active' : '' }}" href="{{ url('performance-indicator') }}"> Performance Indicator  </a></li>
         <li><a class="{{ Request::is('performance') ? 'active' : '' }}" href="{{ url('performance') }}"> Performance Review  </a></li>    
-        <li><a class="{{ Request::is('performance-appraisal') ? 'active' : '' }}" href="{{ url('performance-appraisal') }}"> Performance Appraisal  </a></li>
+        <li><a class="{{ Request::is('performance-appraisal') ? 'active' : '' }}" href="{{ url('performance-appraisal') }}"> Performance Appraisal  </a></li> -->
     </ul>
 </li>
 <li class="submenu">
