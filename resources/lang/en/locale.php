@@ -8,6 +8,7 @@ return [
   'action_detail_data' => 'Detail Data',
   'action_edit_data' => 'Edit Data',
   'action_delete_data' => 'Delete',
+  'action_label' => 'Action',
   'alert_action' => 'You have :action successfully !',
   'alert_add_data_success' => 'The data has been added !',
   'alert_add_data_failed' => 'Failed to save the data !',

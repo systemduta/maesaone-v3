@@ -18,6 +18,7 @@ class AttendanceController extends MITController
         $this->show_numbering = true;
 
         $this->columns = [];
+
         $this->columns[] = ["label" => "Employee", "field" => "employee_name", "search_field" => "b.name"];
         $this->columns[] = ["label" => "Trans Date", "field" => "trans_date"];
         $this->columns[] = ["label" => "Check Time", "field" => "check_time"];

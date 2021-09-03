@@ -53,7 +53,7 @@
 
     $placeholder = isset($form['placeholder']) ? "placeholder='".$form['placeholder']."'" : "";
     $col_width = isset($form['width']) ? $form['width'] : "col-sm-10";
-    $label_width = isset($form['label_width']) ? $form['width'] : "col-sm-2";
+    $label_width = isset($form['label_width']) ? $form['label_width'] : "col-sm-2";
     $class = isset($form['class']) ? $form['class'] : "";
 
     ?>

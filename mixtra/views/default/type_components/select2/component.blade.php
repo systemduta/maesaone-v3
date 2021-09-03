@@ -15,7 +15,7 @@
         <div>
             <select style='width:100%' class='select2 form-control form-control-sm custom-select' id="{{$name}}" name="{{$name}}"
                 {{$required}} {{$readonly}} {{$disabled}}>
-                <option value=''>{{trans('locale.text_prefix_option')}}</option>
+                <option value=''>{{trans('locale.text_prefix_option')}} {{ $form['label'] }}</option>
 
             <?php
             if (isset($form['datatable'])) {

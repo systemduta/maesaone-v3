@@ -226,7 +226,6 @@ class MITController extends Controller
                 }
             }
         }
-
         if ($this->is_export) {
             $data = $query->get();
             if ($data != null) {
@@ -688,6 +687,10 @@ class MITController extends Controller
             return false;
         }
 
+        if ($ro['type'] == 'child' || $ro['type'] == 'measurement') {
+            return false;
+        }
+
         if ($name == 'hide_form') {
             return false;
         }
@@ -699,14 +702,16 @@ class MITController extends Controller
         }
 
         if ($ro['type'] == 'datetime') {
+            dd(strtotime($inputdata));
             if ($inputdata) {
-                if ($ro['datetype'] == 'date') {
-                    $inputdata = date('Y-m-d', strtotime($inputdata));
-                } elseif ($ro['datetype'] == 'date') {
-                    $inputdata = date('H:i:s', strtotime($inputdata));
-                } else {
+                // if ($ro['datetype'] == 'date') {
+                //     $inputdata = date('Y-m-d', strtotime($inputdata));
+                // } elseif ($ro['datetype'] == 'date') {
+                //     $inputdata = date('H:i:s', strtotime($inputdata));
+                // } else {
                     $inputdata = date('Y-m-d H:i:s', strtotime($inputdata));
-                }
+                // }
+                    dd($inputdata);
             }
         }
 
@@ -794,6 +799,7 @@ class MITController extends Controller
 
     public function input_additional($id)
     {
+        $repeatFlag = false;
         foreach ($this->forms as $ro) {
             $name = $ro['name'];
             if (! $name) {
@@ -812,6 +818,88 @@ class MITController extends Controller
                     ]);
                     }
                 }
+            }
+            
+            if (isset($ro['type']) && ($ro['type'] == 'measurement')) {
+                $name = \Str::slug($ro['label'], '');
+                $columns = $ro['columns'];
+                $getColName = Request::get($name.'-'.$columns[0]['name']);
+                $count_input_data = ($getColName)?(count($getColName) - 1):-1;
+                $child_array = [];
+                $childtable = MITBooster::parseSqlTable($ro['table'])['table'];
+                $fk = $ro['foreign_key'];
+
+                if (!$repeatFlag) {
+                    DB::table($childtable)->where($fk, $id)->delete();
+                    $repeatFlag = true;
+                }
+                $lastId = MITBooster::newId($childtable);
+                $childtablePK = MITBooster::pk($childtable);
+
+                for ($i = 0; $i <= $count_input_data; $i++) {
+                    $column_data = [];
+                    $column_data[$childtablePK] = $lastId;
+                    $column_data[$fk] = $id;
+                    foreach ($columns as $col) {
+                        $colname = $col['name'];
+                        if ($col['type'] == 'money' || $col['type'] == 'number') {
+                            $temp_data = Request::get($name.'-'.$colname)[$i];
+                            $temp_data = str_replace(',', '', $temp_data);
+                            $column_data[$colname] = $temp_data;
+                            if ($column_data[$colname] == "") {
+                                $column_data[$colname] = 0;
+                            }
+                        } else {
+                            $column_data[$colname] = Request::get($name.'-'.$colname)[$i];
+                        }
+                    }
+                    $child_array[] = $column_data;
+
+                    $lastId++;
+                }
+
+                $child_array = array_reverse($child_array);
+                DB::table($childtable)->insert($child_array);
+            }
+
+            if (isset($ro['type']) && ($ro['type'] == 'child')) {
+                $name = \Str::slug($ro['label'], '');
+                $columns = $ro['columns'];
+                $getColName = Request::get($name.'-'.$columns[0]['name']);
+                $count_input_data = ($getColName)?(count($getColName) - 1):-1;
+                $child_array = [];
+                $childtable = MITBooster::parseSqlTable($ro['table'])['table'];
+                $fk = $ro['foreign_key'];
+
+
+                DB::table($childtable)->where($fk, $id)->delete();
+                $lastId = MITBooster::newId($childtable);
+                $childtablePK = MITBooster::pk($childtable);
+
+                for ($i = 0; $i <= $count_input_data; $i++) {
+                    $column_data = [];
+                    $column_data[$childtablePK] = $lastId;
+                    $column_data[$fk] = $id;
+                    foreach ($columns as $col) {
+                        $colname = $col['name'];
+                        if ($col['type'] == 'money' || $col['type'] == 'number') {
+                            $temp_data = Request::get($name.'-'.$colname)[$i];
+                            $temp_data = str_replace(',', '', $temp_data);
+                            $column_data[$colname] = $temp_data;
+                            if ($column_data[$colname] == "") {
+                                $column_data[$colname] = 0;
+                            }
+                        } else {
+                            $column_data[$colname] = Request::get($name.'-'.$colname)[$i];
+                        }
+                    }
+                    $child_array[] = $column_data;
+
+                    $lastId++;
+                }
+
+                $child_array = array_reverse($child_array);
+                DB::table($childtable)->insert($child_array);
             }
         }
     }
