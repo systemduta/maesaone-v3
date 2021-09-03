@@ -77,12 +77,14 @@ class AttendancesApiController extends ApiController
 
             $id = $decoded->data->employee_id;
             $type = Request::get('type');
+            $location = Request::get('location');
 
             db::table('attendances')->insert([
                 'created_at' => date('Y-m-d H:i:s'),
                 'trans_date' => date('Y-m-d'),
                 'check_time' => date('Y-m-d H:i:s'),
                 'attendance_type' => $type,
+                'location' => $location,
                 'employee_id' => $id,
             ]);
 

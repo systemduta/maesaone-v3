@@ -10,28 +10,28 @@
     <a href="#"><i class="la la-user"></i> <span> Employees</span> <span class="menu-arrow"><i class="fa fa-chevron-right"></i></span></a>
     <ul style="display: none;">
         <li><a class="{{ Route::currentRouteName() ==  'EmployeeControllerGetIndex' ? 'active' : ''}}" href="{{ MITBooster::sidebarUrl('EmployeeControllerGetIndex') }}"><span>All Employees</span></a></li>
-        <li><a class="{{ Request::is('holidays') ? 'active' : '' }}" href="{{ url('holidays') }}">Holidays</a></li>	
-        <li><a class="{{ Request::is('leaves-employee') ? 'active' : '' }}" href="{{ url('leaves-employee') }}">Leaves</a></li>	
-        <li><a class="{{ Request::is('attendance-employee') ? 'active' : '' }}" href="{{ url('attendance-employee') }}">Attendance</a></li>	
-        <li><a class="{{ Request::is('overtime') ? 'active' : '' }}" href="{{ url('overtime') }}">Overtime</a></li>								        
+        <li><a class="{{ Request::is('holidays') ? 'active' : '' }}" href="{{ url('holidays') }}">Holidays</a></li>
+        <li><a class="{{ Request::is('leaves-employee') ? 'active' : '' }}" href="{{ url('leaves-employee') }}">Leaves</a></li>
+        <li><a class="{{ Route::currentRouteName() ==  'AttendanceControllerGetIndex' ? 'active' : ''}}" href="{{ MITBooster::sidebarUrl('AttendanceControllerGetIndex') }}"><span>Attendance</span></a></li>
+        <li><a class="{{ Request::is('overtime') ? 'active' : '' }}" href="{{ url('overtime') }}">Overtime</a></li>
     </ul>
 </li>
 <li class="submenu">
     <a href="#"><i class="la la-money"></i> <span> Payroll</span> <span class="menu-arrow"><i class="fa fa-chevron-right"></i></span></a>
     <ul style="display: none;">
-        <li><a class="{{ Request::is('salary') ? 'active' : '' }}" href="{{ url('salary') }}">Employee Salary</a></li>	
-        <li><a class="{{ Request::is('salary-view') ? 'active' : '' }}" href="{{ url('salary-view') }}">Payslip</a></li>	
-        <li><a class="{{ Request::is('payroll-items') ? 'active' : '' }}" href="{{ url('payroll-items') }}">Payroll Items</a></li>	
+        <li><a class="{{ Request::is('salary') ? 'active' : '' }}" href="{{ url('salary') }}">Employee Salary</a></li>
+        <li><a class="{{ Request::is('salary-view') ? 'active' : '' }}" href="{{ url('salary-view') }}">Payslip</a></li>
+        <li><a class="{{ Request::is('payroll-items') ? 'active' : '' }}" href="{{ url('payroll-items') }}">Payroll Items</a></li>
     </ul>
 </li>
-<li class="menu-title"> 
+<li class="menu-title">
     <span>Perfomance</span>
 </li>
 <li class="submenu">
     <a href="#"><i class="la la-graduation-cap"></i> <span> Performance </span> <span class="menu-arrow"><i class="fa fa-chevron-right"></i></span></a>
     <ul style="display: none;">
         <li><a class="{{ Request::is('performance-indicator') ? 'active' : '' }}" href="{{ url('performance-indicator') }}"> Performance Indicator  </a></li>
-        <li><a class="{{ Request::is('performance') ? 'active' : '' }}" href="{{ url('performance') }}"> Performance Review  </a></li>    
+        <li><a class="{{ Request::is('performance') ? 'active' : '' }}" href="{{ url('performance') }}"> Performance Review  </a></li>
         <li><a class="{{ Request::is('performance-appraisal') ? 'active' : '' }}" href="{{ url('performance-appraisal') }}"> Performance Appraisal  </a></li>
     </ul>
 </li>
