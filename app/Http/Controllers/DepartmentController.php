@@ -21,7 +21,7 @@ class DepartmentController extends MITController
         $this->columns = [];
         $this->columns[] = ["label" => "Code", "field" => "code"];
         $this->columns[] = ["label" => "Name", "field" => "name"];
-        $this->columns[] = ["label" => "Company", "field" => "company_name", "join"=>"companies"];
+        $this->columns[] = ["label" => "Company", "field" => "company_name"];
         $this->columns[] = ["label" => "External ID", "field" => "external_id"];
 
         $this->forms = [];

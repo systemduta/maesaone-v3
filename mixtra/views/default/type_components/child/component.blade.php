@@ -13,7 +13,6 @@ $name = \Str::slug($form['label'], '');
     @if($form['columns'])
         <div class="col-sm-12">
             <div id='panel-form-{{$name}}'>
-                {{$form['label']}}
                     @push('bottom')
 
                         <script type="text/javascript">

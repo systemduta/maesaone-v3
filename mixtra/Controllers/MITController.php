@@ -687,6 +687,17 @@ class MITController extends Controller
             return false;
         }
 
+        if ($ro['type'] == 'tab') {
+            foreach ($ro['tabpages'] as $tabpage) {
+                foreach ($tabpage['pages'] as $page) {
+                    if (!$this->input_arr($page)) {
+                        continue;
+                    }
+                }
+            }
+            return false;
+        }
+
         if ($ro['type'] == 'child' || $ro['type'] == 'measurement') {
             return false;
         }
@@ -900,6 +911,53 @@ class MITController extends Controller
 
                 $child_array = array_reverse($child_array);
                 DB::table($childtable)->insert($child_array);
+            }
+            if (isset($ro['type']) && $ro['type'] == 'tab') {
+                foreach ($ro["tabpages"] as $ro1) {
+                    if (isset($ro1['type']) && $ro1['type'] == 'tabpage') {
+                        foreach ($ro1["pages"] as $ro2) {
+                            if ($ro2['type'] == 'child' || $ro2['type'] == 'table') {
+                                $name = \Str::slug($ro2['label'], '');
+                                $columns = $ro2['columns'];
+                                $getColName = Request::get($name.'-'.$columns[0]['name']);
+                                $count_input_data = ($getColName)?(count($getColName) - 1):-1;
+                                $child_array = [];
+                                $childtable = MITBooster::parseSqlTable($ro2['table'])['table'];
+                                $fk = $ro2['foreign_key'];
+
+
+                                DB::table($childtable)->where($fk, $id)->delete();
+                                $lastId = MITBooster::newId($childtable);
+                                $childtablePK = MITBooster::pk($childtable);
+
+                                for ($i = 0; $i <= $count_input_data; $i++) {
+                                    $column_data = [];
+                                    $column_data[$childtablePK] = $lastId;
+                                    $column_data[$fk] = $id;
+                                    foreach ($columns as $col) {
+                                        $colname = $col['name'];
+                                        if ($col['type'] == 'money' || $col['type'] == 'number') {
+                                            $temp_data = Request::get($name.'-'.$colname)[$i];
+                                            $temp_data = str_replace(',', '', $temp_data);
+                                            $column_data[$colname] = $temp_data;
+                                            if ($column_data[$colname] == "") {
+                                                $column_data[$colname] = 0;
+                                            }
+                                        } else {
+                                            $column_data[$colname] = Request::get($name.'-'.$colname)[$i];
+                                        }
+                                    }
+                                    $child_array[] = $column_data;
+
+                                    $lastId++;
+                                }
+
+                                $child_array = array_reverse($child_array);
+                                DB::table($childtable)->insert($child_array);
+                            }
+                        }
+                    }
+                }
             }
         }
     }

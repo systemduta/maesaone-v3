@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Mail;
 use Mixtra\Controllers\MITController;
 use DB;
+use MITBooster;
 
 class EmployeeController extends MITController
 {
@@ -30,7 +31,13 @@ class EmployeeController extends MITController
         $this->forms[] = ["label" => "External #", "name" => "external_id", "width"=>'col-sm-2', "begin_group" => false];
         $this->forms[] = ["label" => "Name", "name" => "name", 'required' => true];
 
-        $this->forms[] = ["label" => "", "name" => "name", "type" => "hr", 'required' => true];
+        $this->forms[] = ["name" => "", "type" => "hr"];
+        $this->forms[] = ["label" => "Company", "name" => "company_id", "type" => "select2", "datatable" => "companies,name", "value" => MITBooster::myCompanyID()];
+        $this->forms[] = ["label" => "Service #", "name" => "service_id"];
+        $this->forms[] = ["label" => "Password", "name" => "password"];
+        $this->forms[] = ["label" => "FCM Token", "name" => "fcm_token"];
+
+        $this->forms[] = ["name" => "", "type" => "hr"];
 
         $groups = [];
         $pane = [];
@@ -45,10 +52,10 @@ class EmployeeController extends MITController
         $groups[] = ['pane'=>$pane, 'name'=>'header_left', "type" => "pane", "width"=>'col-sm-6'];
 
         $pane = [];
-        $pane[] = ["label" => "Branch", "label_width"=>'col-sm-3', "name" => "branch_id", "width"=>'col-sm-9'];
-        $pane[] = ["label" => "Department", "label_width"=>'col-sm-3', "name" => "department_id", "width"=>'col-sm-9'];
-        $pane[] = ["label" => "Leader", "label_width"=>'col-sm-3', "name" => "mobile", "width"=>'col-sm-9'];
-        $pane[] = ["label" => "Title", "label_width"=>'col-sm-3', "name" => "social_media", "width"=>'col-sm-9'];
+        $pane[] = ["label" => "Branch", "label_width"=>'col-sm-3', "name" => "branch", "width"=>'col-sm-9'];
+        $pane[] = ["label" => "Department", "label_width"=>'col-sm-3', "name" => "department", "width"=>'col-sm-9'];
+        $pane[] = ["label" => "Leader", "label_width"=>'col-sm-3', "name" => "leader_id", "width"=>'col-sm-9'];
+        $pane[] = ["label" => "Title", "label_width"=>'col-sm-3', "name" => "title", "width"=>'col-sm-9'];
         $pane[] = ["label" => "Unit", "label_width"=>'col-sm-3', "name" => "social_media", "width"=>'col-sm-9'];
         $pane[] = ["label" => "Segment", "label_width"=>'col-sm-3', "name" => "social_media", "width"=>'col-sm-9'];
         $pane[] = ["label" => "Max Leave", "label_width"=>'col-sm-3', "name" => "social_media", "width"=>'col-sm-9'];

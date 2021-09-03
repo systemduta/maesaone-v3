@@ -31,6 +31,30 @@ class TitleController extends MITController
         $this->forms[] = ["label" => "Company", "name" => "company_id", "type" => "select2", 'datatable' => 'companies,name', "value" => MITBooster::myCompanyID()];
         $this->forms[] = ["label" => "Department", "name" => "department_id", "type" => "select2", 'datatable' => 'departments,name'];
         $this->forms[] = ["label" => "External #", "name" => "external_id", 'width'=>'col-sm-2'];
+
+        $tabpages = [];
+
+        $pages = [];
+        $columns = [];
+        $columns[] = ["label" => "id", "name" => "id", "type" => "hidden", "value" => ""];
+        $columns[] = ["label" => "Name", "name" => "name", "type" => "text"];
+        $pages[] = ['label'=>'CPF','name'=>'critical_performance_factor_page','type'=>'child','columns'=>$columns,'table'=>'critical_performance_factors','foreign_key'=>'title_id'];
+        $tabpages[] = ['label'=>'Critical Performance Factor','name'=>'critical_performance_factor_tab','type'=>'tabpage','image'=>'fa fa-archive','pages'=>$pages];
+
+        $pages = [];
+        $columns = [];
+        $columns[] = ["label" => "id", "name" => "id", "type" => "hidden", "value" => ""];
+        $columns[] = ["label" => "Name", "name" => "name", "type" => "text"];
+        $pages[] = ['label'=>'Job Descrition','name'=>'job_descrition_page','type'=>'child','columns'=>$columns,'table'=>'job_descriptions','foreign_key'=>'title_id'];
+        $tabpages[] = ['label'=>'Job Description','name'=>'job_descrition_tab','type'=>'tabpage','image'=>'fa fa-archive','pages'=>$pages];
+
+        $pages = [];
+        $columns = [];
+        $columns[] = ["label" => "id", "name" => "id", "type" => "hidden", "value" => ""];
+        $columns[] = ["label" => "Name", "name" => "name", "type" => "text"];
+        $pages[] = ['label'=>'Performance Umum','name'=>'performance_umum_page','type'=>'child','columns'=>$columns,'table'=>'performance_umums','foreign_key'=>'title_id'];
+        $tabpages[] = ['label'=>'Performance Umum','name'=>'performance_umum_tab','type'=>'tabpage','image'=>'fa fa-archive','pages'=>$pages];
+        $this->forms[] = ['name'=>'header','type'=>'tab','tabpages'=>$tabpages];
     }
 
     public function collections()
