@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Mail;
 use Mixtra\Controllers\MITController;
 use DB;
+use MITBooster;
 
 class OvertimeController extends MITController
 {
@@ -26,7 +27,7 @@ class OvertimeController extends MITController
         $this->columns[] = ["label" => "External ID", "field" => "external_id"];
 
         $this->forms = [];
-        $this->forms[] = ["label" => "Company", "name" => "company_id", "type" => "select2", 'datatable' => 'companies,name'];
+        $this->forms[] = ["label" => "Company", "name" => "company_id", "type" => "select2", 'datatable' => 'companies,name', "value" => MITBooster::myCompanyID()];
         $this->forms[] = ["label" => "Employee", "name" => "employee_id", "type" => "select2", 'datatable' => 'employees,name'];
         $this->forms[] = ["label" => "Date", "name" => "date", "type" => "date", 'required' => true, 'width'=>'col-sm-2', "end_group" => false];
         $this->forms[] = ["label" => "Hour", "name" => "hour", "type" => "number", "value" => 0, 'required' => true, 'width'=>'col-sm-2', "begin_group" => false];

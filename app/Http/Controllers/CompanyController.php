@@ -26,5 +26,6 @@ class CompanyController extends MITController
         $this->forms[] = ["label" => "Code", "name" => "code", 'required' => true, 'width'=>'col-sm-2'];
         $this->forms[] = ["label" => "Name", "name" => "name", 'required' => true];
         $this->forms[] = ["label" => "External #", "name" => "external_id", 'width'=>'col-sm-2'];
+        $this->forms[] = ["label" => "Service", "name" => "service_id", 'width'=>'col-sm-2'];
     }
 }

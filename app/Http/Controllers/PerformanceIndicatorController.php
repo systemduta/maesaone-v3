@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Mail;
 use Mixtra\Controllers\MITController;
 use DB;
+use MITBooster;
 
 class PerformanceIndicatorController extends MITController
 {
@@ -26,7 +27,7 @@ class PerformanceIndicatorController extends MITController
         $this->forms = [];
         $this->forms[] = ["label" => "Code", "name" => "code", 'required' => true, 'width'=>'col-sm-2'];
         $this->forms[] = ["label" => "Name", "name" => "name", 'required' => true];
-        $this->forms[] = ["label" => "Company", "name" => "company_id", "type" => "select2", 'datatable' => 'companies,name'];
+        $this->forms[] = ["label" => "Company", "name" => "company_id", "type" => "select2", 'datatable' => 'companies,name', "value" => MITBooster::myCompanyID()];
         $this->forms[] = ["label" => "External #", "name" => "external_id", 'width'=>'col-sm-2'];
     }
 

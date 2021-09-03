@@ -75,6 +75,11 @@ class MITBooster
     {
         return Auth::user()->name;
     }
+    
+    public static function myCompanyId()
+    {
+        return Auth::user()->company_id;
+    }
 
     public static function myPhoto()
     {

@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Mail;
 use Mixtra\Controllers\MITController;
 use DB;
+use MITBooster;
 
 class JobDescriptionController extends MITController
 {
@@ -25,7 +26,7 @@ class JobDescriptionController extends MITController
         $this->forms[] = ["label" => "Name", "name" => "name", 'required' => true];
         // $this->forms[] = ["label" => "Type", "name" => "type", "type" => "select2", 'dataenum' => 'Job Description;Performance Umum', "value" => "Performance Umum"];
         $this->forms[] = ["label" => "Type", "name" => "type", "type" => "hidden", "value" => "Job Description"];
-        $this->forms[] = ["label" => "Company", "name" => "company_id", "type" => "select2", 'datatable' => 'companies,name'];
+        $this->forms[] = ["label" => "Company", "name" => "company_id", "type" => "select2", 'datatable' => 'companies,name', "value" => MITBooster::myCompanyID()];
         $this->forms[] = ["label" => "Critical Performance Factor (CPF)", "name" => "critical_performance_factor_id", "type" => "select2", 'datatable' => 'critical_performance_factors,name'];
         
         $this->forms[] = ["label" => "", "name" => "hr", "type" => "hr"];

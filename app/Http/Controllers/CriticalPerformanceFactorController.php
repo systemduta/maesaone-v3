@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Mail;
 use Mixtra\Controllers\MITController;
 use DB;
+use MITBooster;
 
 class CriticalPerformanceFactorController extends MITController
 {
@@ -23,7 +24,7 @@ class CriticalPerformanceFactorController extends MITController
 
         $this->forms = [];
         $this->forms[] = ["label" => "Name", "name" => "name", 'required' => true];
-        $this->forms[] = ["label" => "Company", "name" => "company_id", "type" => "select2", 'datatable' => 'companies,name'];
+        $this->forms[] = ["label" => "Company", "name" => "company_id", "type" => "select2", 'datatable' => 'companies,name', "value" => MITBooster::myCompanyID()];
     }
 
     public function collections()

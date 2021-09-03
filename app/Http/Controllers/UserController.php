@@ -23,13 +23,14 @@ class UserController extends MITController
         $this->columns[] = ["label" => "Name", "field" => "name", "search_field" => "a.name"];
         $this->columns[] = ["label" => "Email", "field" => "email", "width" => 120];
         $this->columns[] = ["label" => "Verified", "field" => "email_verified_at", "width" => 120, "callback_php" => "date('d M Y H:i',strtotime([email_verified_at]))"];
-
         $this->columns[] = ["label" => "Role", "field" => "role_name", "width" => 150, "search_field" => "b.name"];
+        $this->columns[] = ["label" => "Company", "field" => "company_name", "join"=>"companies"];
 
         $this->forms = [];
         $this->forms[] = ["label" => "Name", "name" => "name", 'required' => true];
         $this->forms[] = ["label" => "Email", "name" => "email"];
-        $this->forms[] = ["label" => "Photo", "name" => "photo", "type"=>"upload", "class" => "image", "help"=>"Recommended resolution is 90x90px"];
+        $this->forms[] = ["label" => "Company", "name" => "company_id", "type" => "select2", 'datatable' => 'companies,name'];
+        // $this->forms[] = ["label" => "Photo", "name" => "photo", "type"=>"upload", "class" => "image", "help"=>"Recommended resolution is 90x90px"];
         if($this->module_name != 'Profile') {
             $this->forms[] = ["label" => "Role", "name" => "mit_role_id", "type" => "select2", 'datatable' => 'mit_roles,name', 'required' => true, 'value' => 1];
         }
@@ -41,7 +42,8 @@ class UserController extends MITController
     {
         return DB::table('users as a')
             ->leftJoin('mit_roles as b', 'a.mit_role_id', 'b.id')
-            ->select("a.*", "b.name as role_name");
+            ->leftjoin('companies', 'a.company_id', 'companies.id')
+            ->select("a.*", "b.name as role_name", "companies.name AS company_name");
     }
 
     public function hook_before_add(&$arr)
