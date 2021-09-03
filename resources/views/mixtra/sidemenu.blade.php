@@ -23,12 +23,12 @@
 <li class="submenu">
     <a href="#"><i class="la la-money"></i> <span> Payroll</span> <span class="menu-arrow"><i class="fa fa-chevron-right"></i></span></a>
     <ul style="display: none;">
-        <li><a class="{{ Request::is('salary') ? 'active' : '' }}" href="{{ url('salary') }}">Employee Salary</a></li>	
-        <li><a class="{{ Request::is('salary-view') ? 'active' : '' }}" href="{{ url('salary-view') }}">Payslip</a></li>	
-        <li><a class="{{ Request::is('payroll-items') ? 'active' : '' }}" href="{{ url('payroll-items') }}">Payroll Items</a></li>	
+        <li><a class="{{ Request::is('salary') ? 'active' : '' }}" href="{{ url('salary') }}">Employee Salary</a></li>
+        <li><a class="{{ Request::is('salary-view') ? 'active' : '' }}" href="{{ url('salary-view') }}">Payslip</a></li>
+        <li><a class="{{ Request::is('payroll-items') ? 'active' : '' }}" href="{{ url('payroll-items') }}">Payroll Items</a></li>
     </ul>
 </li>
-<li class="menu-title"> 
+<li class="menu-title">
     <span>Perfomance</span>
 </li>
 <li class="submenu">

@@ -56,7 +56,7 @@ class MITController extends Controller
 
     // Filter Property
     public $filters = [];
-    
+
 
     public function init()
     {
@@ -116,7 +116,7 @@ class MITController extends Controller
         $this->data['button_detail'] = $this->button_detail;
         $this->data['button_delete'] = $this->button_delete;
         $this->data['button_export'] = $this->button_export;
-        
+
         $this->data['button_selected'] = $this->button_selected;
 
         $this->data['pre_card_header_html'] = $this->pre_card_header_html;
@@ -134,7 +134,7 @@ class MITController extends Controller
     {
         $this->mitLoader();
         $this->data['module'] = MITBooster::getCurrentModule();
-        
+
         if (!MITBooster::isView()) {
             MITBooster::insertLog(trans('locale.log_try_view', ['module' => $this->data['module']->name]));
             return MITBooster::redirect(MITBooster::adminPath(), trans('locale.denied_access'));
@@ -142,6 +142,7 @@ class MITController extends Controller
 
         $limit = (Request::get('limit')) ? Request::get('limit') : $this->limit;
         $query = $this->collections();
+
         // Searching
         if (Request::get('q')) {
             $columns_table = $this->columns;
@@ -211,7 +212,7 @@ class MITController extends Controller
                 }
             }
         });
-    
+
         // Sorting
         foreach ($params as $key => $param) {
             if (substr($key, 0, 5) == "sort_") {
@@ -239,7 +240,7 @@ class MITController extends Controller
         }
         // dd($query->toSql());
         $result = $query->paginate($limit);
-        
+
         $html_contents = [];
         $page = (Request::get('page')) ? Request::get('page') : 1;
         $number = ($page - 1) * $limit + 1;
@@ -335,7 +336,7 @@ class MITController extends Controller
         $this->data['module'] = MITBooster::getCurrentModule();
         $this->data['command'] = 'edit';
         $this->data['row'] = DB::table($this->table)->where($this->primary, $id)->first();
-        
+
         if (!MITBooster::isRead() || $this->button_edit == false) {
             MITBooster::insertLog(trans("locale.log_try_edit", [
                 'name' => $row->{$this->title_field},
@@ -382,7 +383,7 @@ class MITController extends Controller
         if (Schema::hasColumn($this->table, 'created_at')) {
             $this->arr['created_at'] = date('Y-m-d H:i:s');
         }
-        
+
         $this->hook_before_add($this->arr);
         $id = DB::table($this->table)->insertGetId($this->arr);
         $this->hook_after_add($id);
@@ -390,7 +391,7 @@ class MITController extends Controller
         $this->input_additional($id);
 
         $this->return_url = isset($this->return_url) ? $this->return_url : Request::get('return_url');
-        
+
         MITBooster::insertLog(trans("locale.log_add", [
             'name' => $this->arr[$this->title_field],
             'module' => MITBooster::getCurrentModule()->name
@@ -400,7 +401,7 @@ class MITController extends Controller
             if (Request::get('submit') == trans('locale.button_save_more')) {
                 return MITBooster::redirect(Request::server('HTTP_REFERER'), trans("locale.alert_add_data_success"), 'success');
             } else {
-                return MITBooster::redirect($this->return_url, trans("locale.alert_add_data_success"), 'success');            
+                return MITBooster::redirect($this->return_url, trans("locale.alert_add_data_success"), 'success');
             }
         } else {
             if (Request::get('submit') == trans('locale.button_save_more')) {
@@ -527,7 +528,14 @@ class MITController extends Controller
 
     public function downloadData($data, $filename, $writerType)
     {
-        return Excel::download(new MITExport($data, $this->columns), $filename, $writerType);
+        $new_data = $data->map(function ($dt){
+            $temp = collect([]);
+            foreach ($this->columns as $column) {
+                $temp->put($column['field'], $dt->{$column['field']});
+            }
+            return $temp;
+        });
+        return Excel::download(new \App\Exports\MITExport($new_data, $this->columns), $filename, $writerType);
     }
 
     public function validation($id = null)
@@ -540,7 +548,7 @@ class MITController extends Controller
             }
         }
         $validator = Validator::make($request_all, $array_input);
-        
+
         if ($validator->fails()) {
             $message = $validator->messages();
             $message_all = $message->all();
@@ -613,7 +621,7 @@ class MITController extends Controller
                         $uniqueColumn = ($parseUnique[1]) ?: $name;
                         $first_data = db::table($uniqueTable)->where($uniqueColumn, $request_all[$uniqueColumn])->first();
                         $uniqueIgnoreId = Session::get('current_row_id', 0);
-                        
+
                         //Make sure table name
                         $uniqueTable = MIT::parseSqlTable($uniqueTable)['table'];
 
@@ -670,7 +678,7 @@ class MITController extends Controller
             || $ro['type'] == 'blank' || $ro['type'] == 'image' || $ro['type'] == 'label') {
             return false;
         }
-        
+
         if (! $name) {
             return false;
         }
@@ -775,7 +783,7 @@ class MITController extends Controller
 
         // if (@$ro['type'] == 'upload_video') {
         //     $this->arr[$name] = MITBooster::uploadFile($name, $ro['encrypt'] || $ro['upload_encrypt'], $ro['resize_width'], $ro['resize_height'], $ro['target_folder'], MIT::myId());
-            
+
         //     if (! $this->arr[$name]) {
         //         $this->arr[$name] = Request::get('_'.$name);
         //     }
@@ -918,7 +926,7 @@ class MITController extends Controller
             } else {
                 DB::table($this->table)->whereIn($this->primary, $id_selected)->delete();
             }
-    
+
             //insert log
             MITBooster::insertLog(trans("locale.log_delete", [
                 'name' => implode(',', $id_selected),

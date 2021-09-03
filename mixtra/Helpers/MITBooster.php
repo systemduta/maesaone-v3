@@ -63,7 +63,7 @@ class MITBooster
     public static function getSetting($name)
     {
         $query = DB::table('mit_settings')->where('name', $name)->first();
-        return $query->content;
+        return $query && $query->content ? $query->content : null;
     }
 
     public static function myId()
@@ -250,12 +250,12 @@ class MITBooster
                 unset($params[$key]);
             }
         }
-        
+
         if ($key != "q" && $key != "limit" && $key != "format") {
             $params[$type.'_'.$key] = $value;
         }
-        
-        
+
+
         if (isset($params)) {
             return $mainpath.'?'.urldecode(http_build_query($params));
         }
@@ -371,7 +371,7 @@ class MITBooster
         }
     }
 
-    public static function sidebarUrl($path) 
+    public static function sidebarUrl($path)
     {
         try {
             return route($path);

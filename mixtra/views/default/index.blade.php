@@ -9,7 +9,7 @@
 <div class="page-wrapper">
     <!-- Page Content -->
     <div class="content container-fluid">
-    
+
         <!-- Page Header -->
         <div class="page-header">
             <div class="row align-items-center">
@@ -19,40 +19,38 @@
                 <div class="col-auto float-right ml-auto">
                     @if(MITBooster::getCurrentMethod() == 'getIndex')
                         @if($button_export)
-                            {{--
                             <div class="btn-group">
-                                <button type="button" 
-                                    class="btn waves-effect waves-light btn-sm btn-warning btn-export dropdown-toggle" 
+                                <button type="button"
+                                    class="btn waves-effect waves-light btn-sm btn-warning btn-export dropdown-toggle"
                                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <i class="fa fa-upload"></i> <span class="sm-button-action">{{trans("locale.button_export")}}</span>
                                 </button>
                                 <div class="dropdown-menu">
-                                    <a class="dropdown-item" href="{{ MITBooster::mainpath('export-data').'?format=pdf&'.http_build_query(Request::all()) }}" title="{{trans('locale.pdf')}}"><i class="fa fa-file-pdf"></i> {{trans('locale.export_pdf')}} </a>
+{{--                                    <a class="dropdown-item" href="{{ MITBooster::mainpath('export-data').'?format=pdf&'.http_build_query(Request::all()) }}" title="{{trans('locale.pdf')}}"><i class="fa fa-file-pdf"></i> {{trans('locale.export_pdf')}} </a>--}}
                                     <a class="dropdown-item" href="{{ MITBooster::mainpath('export-data').'?format=xlsx&'.http_build_query(Request::all()) }}" title="{{trans('locale.xlsx')}}"><i class="fa fa-file-excel"></i> {{trans('locale.export_xlsx')}} </a>
                                     <a class="dropdown-item" href="{{ MITBooster::mainpath('export-data').'?format=xls&'.http_build_query(Request::all()) }}" title="{{trans('locale.xls')}}"><i class="fa fa-file-excel"></i> {{trans('locale.export_xls')}} </a>
                                     <a class="dropdown-item" href="{{ MITBooster::mainpath('export-data').'?format=csv&'.http_build_query(Request::all()) }}" title="{{trans('locale.csv')}}"><i class="fa fa-file-csv"></i> {{trans('locale.export_csv')}} </a>
                                 </div>
                             </div>
-                            --}}
                         @endif
                         @if($button_reload)
-                            <a href="{{ MITBooster::mainpath().'?'.http_build_query(Request::all()) }}" 
+                            <a href="{{ MITBooster::mainpath().'?'.http_build_query(Request::all()) }}"
                                 id='btn_show_data'
-                                class="btn btn-sm btn-success" 
+                                class="btn btn-sm btn-success"
                                 title="{{trans('locale.action_reload_data')}}">
                                 <i class="fa fa-sync-alt"></i> {{trans('locale.action_reload_data')}}
                             </a>
                         @endif
                         @if($button_add && MITBooster::isCreate())
-                            <a href="{{ MITBooster::mainpath('add').'?return_url='.urlencode(Request::fullUrl()) }}" 
+                            <a href="{{ MITBooster::mainpath('add').'?return_url='.urlencode(Request::fullUrl()) }}"
                                 id='btn_add_data'
-                                class="btn btn-sm btn-info" 
+                                class="btn btn-sm btn-info"
                                 title="{{trans('locale.action_add_data')}}">
                                 <i class="fa fa-plus-circle"></i> {{trans('locale.action_add_data')}}
                             </a>
                         @endif
                     @endif
-                    
+
                 </div>
             </div>
         </div>
@@ -67,7 +65,7 @@
             <div class="alert-body">
                 <h3 class="text-{{ $message_type }}">
                     <i class="fa fa-{{ $message_type }}"></i> {{ $message_type }}
-                </h3> 
+                </h3>
                 {{ $message }}
             </div>
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -80,9 +78,9 @@
             <div class="col-sm-4">
                 @if($button_bulk_action && (($button_delete && MITBooster::isDelete()) || $button_selected) )
                 <div class="btn-group selected-action">
-                    <button type="button" 
-                        class="btn waves-effect waves-light btn-sm btn-primary dropdown-toggle" 
-                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-check-square"></i> 
+                    <button type="button"
+                        class="btn waves-effect waves-light btn-sm btn-primary dropdown-toggle"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-check-square"></i>
                         {{trans("locale.button_selected_action")}}
                     </button>
                     <div class="dropdown-menu">
@@ -93,7 +91,7 @@
                         @endif
                         @if($button_selected)
                             @foreach($button_selected as $button)
-                                <a class="dropdown-item" href="javascript:void(0)" 
+                                <a class="dropdown-item" href="javascript:void(0)"
                                     data-name='{{$button["name"]}}' title='{{$button["label"]}}'>
                                     <i class="fa fa-{{$button['icon']}}"></i> {{$button['label']}}
                                 </a>
@@ -111,8 +109,8 @@
                             <button type="button" class="btn btn-sm waves-effect waves-light btn-primary" onclick="setFullText()">
                                 <i class="fa fa-search"></i>
                             </button>
-                            <button type="button" 
-                                class="btn btn-sm waves-effect waves-light btn-primary dropdown-toggle" 
+                            <button type="button"
+                                class="btn btn-sm waves-effect waves-light btn-primary dropdown-toggle"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ $limit }}</button>
                             <div class="dropdown-menu">
                                 <a class="dropdown-item" href="#" onclick="setLimit(5)">10</a>
@@ -141,7 +139,7 @@
                     $to = $result->perPage() * $result->currentPage() - $result->perPage() + $result->count();
                     $total = $result->total();
                     ?>
-                    {{ trans("locale.filter_rows_total") }} : {{ $from }} {{ trans("locale.filter_rows_to") }} {{ $to }} 
+                    {{ trans("locale.filter_rows_total") }} : {{ $from }} {{ trans("locale.filter_rows_to") }} {{ $to }}
                     {{ trans("locale.filter_rows_of") }} {{ $total }}</p>
             </div>
         </div>
@@ -180,6 +178,6 @@
             }
         });
     });
-</script>    
+</script>
 @endpush
 

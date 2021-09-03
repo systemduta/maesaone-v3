@@ -13,32 +13,30 @@ class AttendanceController extends MITController
 {
     public function init()
     {
-        $this->table = 'leaves';
+        $this->table = 'attendances';
         $this->title_field = 'name';
         $this->show_numbering = true;
 
         $this->columns = [];
-        // $this->columns[] = ["label" => "Code", "field" => "code"];
-        // $this->columns[] = ["label" => "Name", "field" => "name"];
-        // $this->columns[] = ["label" => "Company", "field" => "company_name"];
-        // $this->columns[] = ["label" => "Employee", "field" => "employee_name"];
-        // $this->columns[] = ["label" => "External ID", "field" => "external_id"];
+
+        $this->columns[] = ["label" => "Employee", "field" => "employee_name", "search_field" => "b.name"];
+        $this->columns[] = ["label" => "Trans Date", "field" => "trans_date"];
+        $this->columns[] = ["label" => "Check Time", "field" => "check_time"];
+        $this->columns[] = ["label" => "Type", "field" => "attendance_type"];
+        $this->columns[] = ["label" => "Location", "field" => "location"];
 
         $this->forms = [];
-        // $this->forms[] = ["label" => "Company", "name" => "company_id", "type" => "select2", 'datatable' => 'companies,name'];
-        // $this->forms[] = ["label" => "Employee", "name" => "employee_id", "type" => "select2", 'datatable' => 'employees,name'];
-        // $this->forms[] = ["label" => "Type", "name" => "type", "type" => "select2", "dataenum" => ""];
-        // $this->forms[] = ["label" => "From", "name" => "from", "type" => "date", 'required' => true, 'width'=>'col-sm-2'];
-        // $this->forms[] = ["label" => "To", "name" => "to", "type" => "date", 'required' => true, 'width'=>'col-sm-2'];
-        // $this->forms[] = ["label" => "Reason", "name" => "reason", "type" => "textarea"];
-        // $this->forms[] = ["label" => "External #", "name" => "external_id", 'width'=>'col-sm-2'];
+        $this->forms[] = ["label" => "Trans Date", "name" => "trans_date", 'required' => true, 'width'=>'col-sm-2'];
+        $this->forms[] = ["label" => "Check Time", "name" => "check_time", 'required' => true];
+        $this->forms[] = ["label" => "Type", "name" => "attendance_type", 'width'=>'col-sm-2'];
+        $this->forms[] = ["label" => "Location", "name" => "location", 'width'=>'col-sm-2'];
     }
 
-    // public function collections()
-    // {
-    //     return DB::table($this->table)
-    //         ->leftjoin('companies', $this->table.'.company_id', 'companies.id')
-    //         ->leftjoin('employees', $this->table.'.employee_id', 'employees.id')
-    //         ->select($this->table.".*", "companies.name AS company_name", "employees.name AS employee_name");
-    // }
+    public function collections()
+    {
+        return DB::table('attendances as a')
+            ->leftJoin('employees as b', 'a.employee_id', 'b.id')
+            ->select("a.*", "b.name as employee_name")
+            ->orderBy('a.id', 'desc');
+    }
 }
