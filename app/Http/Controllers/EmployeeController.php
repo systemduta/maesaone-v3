@@ -2,13 +2,12 @@
 
 namespace App\Http\Controllers;
 
-// use MITBooster;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Mail;
 use Mixtra\Controllers\MITController;
-use DB;
-use MITBooster;
+use Illuminate\Support\Facades\DB;
+use Mixtra\Helpers\MITBooster;
 
 class EmployeeController extends MITController
 {
@@ -23,7 +22,8 @@ class EmployeeController extends MITController
         $this->columns[] = ["label" => "Name", "field" => "name"];
         $this->columns[] = ["label" => "Email", "field" => "email"];
         $this->columns[] = ["label" => "Phone", "field" => "mobile"];
-        $this->columns[] = ["label" => "Branch", "field" => "branch_id"];
+        $this->columns[] = ["label" => "Company", "field" => "company_name", "join"=>"companies"];
+        $this->columns[] = ["label" => "Branch", "field" => "branch"];
 
         $this->forms = [];
         $this->forms[] = ["label" => "NIK", "name" => "nik", 'required' => true, "width" => "col-sm-4", "end_group" => false];
@@ -61,7 +61,7 @@ class EmployeeController extends MITController
         $pane[] = ["label" => "Max Leave", "label_width"=>'col-sm-3', "name" => "social_media", "width"=>'col-sm-9'];
         $pane[] = ["label" => "Leave", "label_width"=>'col-sm-3', "name" => "social_media", "width"=>'col-sm-9'];
         $groups[] = ['pane'=>$pane, 'name'=>'header_right', "type" => "pane", "width"=>'col-sm-6'];
-        
+
         $this->forms[] = array('name'=>'header','type'=>'group','groups'=>$groups);
 
         $tabpages = [];
@@ -84,7 +84,17 @@ class EmployeeController extends MITController
         $tabpages[] = ['label'=>'Identity','name'=>'identity','type'=>'tabpage','image'=>'fa fa-file-invoice','pages'=>$pages];
 
         $this->forms[] = array('name'=>'detail','type'=>'tab','tabpages'=>$tabpages);
+    }
 
-
+    public function collections()
+    {
+        $company_id = MITBooster::myCompanyID();
+        return DB::table('employees as a')
+            ->leftjoin('companies', 'a.company_id', 'companies.id')
+            ->select("a.*", "companies.name as company_name")
+            ->when($company_id, function ($query, $company_id) {
+                return $query->where("company_id", $company_id);
+            })
+            ->orderBy('id', 'desc');
     }
 }

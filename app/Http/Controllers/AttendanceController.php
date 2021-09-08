@@ -2,12 +2,9 @@
 
 namespace App\Http\Controllers;
 
-// use MITBooster;
-use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Facades\Request;
-use Illuminate\Support\Facades\Mail;
 use Mixtra\Controllers\MITController;
-use DB;
+use Illuminate\Support\Facades\DB;
+use Mixtra\Helpers\MITBooster;
 
 class AttendanceController extends MITController
 {
@@ -34,9 +31,13 @@ class AttendanceController extends MITController
 
     public function collections()
     {
+        $company_id = MITBooster::myCompanyID();
         return DB::table('attendances as a')
             ->leftJoin('employees as b', 'a.employee_id', 'b.id')
-            ->select("a.*", "b.name as employee_name")
+            ->select("a.*", "b.name as employee_name", "b.company_id")
+            ->when($company_id, function ($query, $company_id) {
+                return $query->where("company_id", $company_id);
+            })
             ->orderBy('a.id', 'desc');
     }
 }

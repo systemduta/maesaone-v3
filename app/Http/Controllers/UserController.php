@@ -11,7 +11,7 @@ use DB;
 
 class UserController extends MITController
 {
-    private $module_name = true;
+    private $module_name = 'User';
 
     public function init()
     {
@@ -51,7 +51,7 @@ class UserController extends MITController
         unset($arr['password_confirmation']);
     }
 
-    public function hook_before_edit(&$arr,$id) { 
+    public function hook_before_edit(&$arr,$id) {
         unset($arr['password_confirmation']);
 	}
 
