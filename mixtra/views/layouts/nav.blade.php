@@ -9,6 +9,7 @@
 					@if (file_exists(resource_path('views/mixtra/sidemenu.blade.php')))
             			@include('mixtra.sidemenu')
         			@endif
+                    @if(\Mixtra\Helpers\MITBooster::isSuperadmin())
 					<li class="menu-title"> 
 						<span>SUPERADMIN</span>
 					</li>
@@ -27,7 +28,8 @@
 					</li>	
 					<li class="{{ Route::currentRouteName() ==  'LogControllerGetIndex' ? 'active' : ''}}">
 						<a  href="{{ route('LogControllerGetIndex') }}"><i class="fa fa-history"></i> <span>Logs</span></a>
-					</li>	
+					</li>
+                    @endif
 				</ul>
 			</div>
 		</div>
